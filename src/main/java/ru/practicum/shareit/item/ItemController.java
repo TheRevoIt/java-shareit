@@ -31,8 +31,7 @@ public class ItemController {
         return itemService.createItem(itemDto, userId);
     }
 
-    @PatchMapping
-    @RequestMapping("/{itemId}")
+    @PatchMapping("/{itemId}")
     ItemDto patchItem(@PathVariable long itemId,
                       @Validated({Update.class}) @RequestBody ItemDto itemDto) {
         return itemService.updateItem(itemId, itemDto);

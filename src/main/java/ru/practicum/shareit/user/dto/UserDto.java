@@ -2,6 +2,7 @@ package ru.practicum.shareit.user.dto;
 
 import lombok.Data;
 import ru.practicum.shareit.user.Create;
+import ru.practicum.shareit.user.Update;
 import ru.practicum.shareit.util.validation.UniqueEmailConstraint;
 
 import javax.validation.constraints.Email;
@@ -13,7 +14,7 @@ public class UserDto {
     @NotBlank(groups = {Create.class})
     private final String name;
     @NotBlank(groups = {Create.class})
-    @UniqueEmailConstraint(groups = {Create.class})
+    @UniqueEmailConstraint(groups = {Create.class, Update.class})
     @Email(groups = {Create.class})
     private final String email;
 }

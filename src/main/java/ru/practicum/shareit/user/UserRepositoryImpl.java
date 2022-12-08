@@ -12,20 +12,20 @@ import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
-    private HashMap<Long, User> users = new HashMap<>();
-    private HashSet<String> emails = new HashSet<>();
+    private final HashMap<Long, User> users = new HashMap<>();
+    private final HashMap<Long, String> emails = new HashMap<>();
     private long id = 1;
     // TODO: 16/11/2022 Обновление должно изменять email адрес 
 
     @Override
     public boolean uniqueEmailCheck(String email) {
-        return !emails.contains(email);
+        return !emails.containsValue(email);
     }
 
     @Override
     public User addUser(User user) {
         user.setId(id);
-        emails.add(user.getEmail());
+        emails.put(user.getId(), user.getEmail());
         users.put(id++, user);
         return user;
     }
@@ -34,7 +34,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User updateUser(long userId, User user) {
         User userToUpdate = users.get(userId);
         if (Objects.nonNull(user.getEmail())) {
-            emails.add(user.getEmail());
+            emails.put(userId, user.getEmail());
             userToUpdate.setEmail(user.getEmail());
         }
         if (Objects.nonNull(user.getName())) {
@@ -45,7 +45,18 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> getUserById(long userId) {
-        return Optional.of(users.get(userId));
+        return Optional.ofNullable(users.get(userId));
+    }
+
+    @Override
+    public Optional<User> deleteUserById(long userId) {
+        if (users.containsKey(userId)) {
+            User loadedUser = new User(users.get(userId).getName(), users.get(userId).getName());
+            emails.remove(userId);
+            users.remove(userId);
+            return Optional.of(loadedUser);
+        }
+        return Optional.empty();
     }
 
     @Override
