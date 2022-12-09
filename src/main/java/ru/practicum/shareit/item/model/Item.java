@@ -16,13 +16,19 @@ import javax.validation.constraints.NotNull;
 public class Item {
     private long id;
     @NotBlank(groups = {Create.class})
-    private final String name;
+    private String name;
     @NotNull(groups = {Create.class})
     private User owner;
     @NotBlank(groups = {Create.class})
-    private final String description;
+    private String description;
     @NotNull(groups = {Create.class})
-    private final ItemStatus itemStatus;
+    private ItemStatus itemStatus;
     @NotNull(groups = {Create.class})
     private ItemRequest request;
+
+    public Item(String name, String description, ItemStatus status) {
+        this.name = name;
+        this.description = description;
+        this.itemStatus = status;
+    }
 }

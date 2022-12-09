@@ -5,13 +5,11 @@ import ru.practicum.shareit.util.exception.NotFoundException;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+class UserService {
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -24,7 +22,10 @@ public class UserService {
     }
 
     public UserDto updateUser(long userId, UserDto userDto) {
-        User mappedUser = userRepository.updateUser(userId, UserMapper.toUser(userDto));
+        User loadedUser = userRepository.getUserById(userId).orElseThrow(() ->
+                new NotFoundException(String.format("Пользователь с id=%x не найден", userId)));
+        User mappedUser = UserMapper.toUpdatedUser(userDto, loadedUser);
+        userRepository.updateUser(userId, mappedUser);
         return UserMapper.toUserDto(mappedUser);
     }
 

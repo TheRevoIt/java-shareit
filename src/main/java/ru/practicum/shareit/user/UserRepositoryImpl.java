@@ -5,7 +5,6 @@ import ru.practicum.shareit.user.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -15,7 +14,6 @@ public class UserRepositoryImpl implements UserRepository {
     private final HashMap<Long, User> users = new HashMap<>();
     private final HashMap<Long, String> emails = new HashMap<>();
     private long id = 1;
-    // TODO: 16/11/2022 Обновление должно изменять email адрес 
 
     @Override
     public boolean uniqueEmailCheck(String email) {
@@ -31,7 +29,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User updateUser(long userId, User user) {
+    public void updateUser(long userId, User user) {
         User userToUpdate = users.get(userId);
         if (Objects.nonNull(user.getEmail())) {
             emails.put(userId, user.getEmail());
@@ -40,7 +38,6 @@ public class UserRepositoryImpl implements UserRepository {
         if (Objects.nonNull(user.getName())) {
             userToUpdate.setName(user.getName());
         }
-        return userToUpdate;
     }
 
     @Override

@@ -5,11 +5,11 @@ import ru.practicum.shareit.item.model.Item;
 import java.util.List;
 import java.util.Optional;
 
-public interface ItemRepository {
+interface ItemRepository {
 
     Item addItem(Item item);
 
-    Item updateItem(long itemId, Item item);
+    void updateItem(Item item);
 
     Optional<Item> getItemById(long itemId);
 

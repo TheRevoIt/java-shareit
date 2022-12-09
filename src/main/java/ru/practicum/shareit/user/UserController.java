@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
-   UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -37,7 +37,7 @@ public class UserController {
 
     @GetMapping(path = "/{userId}")
     UserDto userGetById(@PathVariable long userId) {
-       return userService.getUserById(userId);
+        return userService.getUserById(userId);
     }
 
     @DeleteMapping(path = "/{userId}")
@@ -49,6 +49,4 @@ public class UserController {
     List<UserDto> getAllUsers() {
         return userService.getAllUsers();
     }
-
-
 }
