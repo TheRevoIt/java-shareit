@@ -23,24 +23,24 @@ class ItemService {
     }
 
     public ItemDto create(ItemDto itemDto, long userId) {
-        User owner = userRepository.getUserById(userId).orElseThrow(() ->
+        User owner = userRepository.getById(userId).orElseThrow(() ->
                 new NotFoundException(String.format("Пользователь с id=%x не найден", userId)));
-        Item mappedItem = itemRepository.addItem(ItemMapper.toItem(itemDto, owner));
+        Item mappedItem = itemRepository.add(ItemMapper.toItem(itemDto, owner));
         mappedItem.setOwner(owner);
         return ItemMapper.toItemDto(mappedItem);
     }
 
     public ItemDto update(ItemDto itemDto, long itemId, long userId) {
-        User owner = userRepository.getUserById(userId).orElseThrow(() ->
+        User owner = userRepository.getById(userId).orElseThrow(() ->
                 new NotFoundException(String.format("Пользователь с id=%x не найден", userId)));
         Item loadedItem = validateOwner(userId, itemId);
         Item mappedItem = ItemMapper.toUpdatedItem(itemDto, loadedItem, owner);
-        itemRepository.updateItem(mappedItem);
+        itemRepository.update(mappedItem);
         return ItemMapper.toItemDto(mappedItem);
     }
 
     private Item validateOwner(long userId, long itemId) {
-        Item loadedItem = itemRepository.getItemById(itemId).orElseThrow(() ->
+        Item loadedItem = itemRepository.getById(itemId).orElseThrow(() ->
                 new NotFoundException(String.format("Предмет с id=%x не найден", itemId)));
         if (loadedItem.getOwner().getId() != userId) {
             throw new NotFoundException(String.format("Пользователь с id=%x не является владельцем данного предмета", userId));
@@ -49,12 +49,12 @@ class ItemService {
     }
 
     public ItemDto getById(long itemId) {
-        return ItemMapper.toItemDto(itemRepository.getItemById(itemId).orElseThrow(() ->
+        return ItemMapper.toItemDto(itemRepository.getById(itemId).orElseThrow(() ->
                 new NotFoundException(String.format("Предмет с id=%x не найден", itemId))));
     }
 
     public List<ItemDto> getAll(long ownerId) {
-        return itemRepository.getItems().stream().filter(item -> item.getOwner().getId() == ownerId)
+        return itemRepository.getAll().stream().filter(item -> item.getOwner().getId() == ownerId)
                 .map(ItemMapper::toItemDto).collect(Collectors.toList());
     }
 
@@ -63,7 +63,7 @@ class ItemService {
         if (searchText.length() < 1) {
             return new ArrayList<>();
         }
-        return itemRepository.getItems().stream().filter(item ->
+        return itemRepository.getAll().stream().filter(item ->
                         (item.getDescription().toLowerCase().contains(searchText) ||
                                 item.getName().toLowerCase().contains(searchText)) &&
                                 item.getItemStatus() == ItemStatus.AVAILABLE)

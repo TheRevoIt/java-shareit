@@ -17,30 +17,30 @@ class UserService {
     }
 
     public UserDto create(UserDto userDto) {
-        User mappedUser = userRepository.addUser(UserMapper.toUser(userDto));
+        User mappedUser = userRepository.add(UserMapper.toUser(userDto));
         return UserMapper.toUserDto(mappedUser);
     }
 
     public UserDto update(long userId, UserDto userDto) {
-        User loadedUser = userRepository.getUserById(userId).orElseThrow(() ->
+        User loadedUser = userRepository.getById(userId).orElseThrow(() ->
                 new NotFoundException(String.format("Пользователь с id=%x не найден", userId)));
         User mappedUser = UserMapper.toUpdatedUser(userDto, loadedUser);
-        userRepository.updateUser(userId, mappedUser);
+        userRepository.update(userId, mappedUser);
         return UserMapper.toUserDto(mappedUser);
     }
 
     public UserDto getById(long userId) {
-        User loadedUser = userRepository.getUserById(userId).orElseThrow(() ->
+        User loadedUser = userRepository.getById(userId).orElseThrow(() ->
                 new NotFoundException(String.format("Пользователь с id=%x не найден", userId)));
         return UserMapper.toUserDto(loadedUser);
     }
 
     public void deleteById(long userId) {
-        userRepository.deleteUserById(userId).orElseThrow(() ->
+        userRepository.deleteById(userId).orElseThrow(() ->
                 new NotFoundException(String.format("Пользователь с id=%x не найден", userId)));
     }
 
     public List<UserDto> getAll() {
-        return userRepository.getUsers().stream().map(UserMapper::toUserDto).collect(Collectors.toList());
+        return userRepository.getAll().stream().map(UserMapper::toUserDto).collect(Collectors.toList());
     }
 }

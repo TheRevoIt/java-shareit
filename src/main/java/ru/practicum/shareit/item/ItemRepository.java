@@ -7,11 +7,11 @@ import java.util.Optional;
 
 interface ItemRepository {
 
-    Item addItem(Item item);
+    Item add(Item item);
 
-    void updateItem(Item item);
+    void update(Item item);
 
-    Optional<Item> getItemById(long itemId);
+    Optional<Item> getById(long itemId);
 
-    List<Item> getItems();
+    List<Item> getAll();
 }

@@ -21,7 +21,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User addUser(User user) {
+    public User add(User user) {
         user.setId(id);
         emails.put(user.getId(), user.getEmail());
         users.put(id++, user);
@@ -29,7 +29,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void updateUser(long userId, User user) {
+    public void update(long userId, User user) {
         User userToUpdate = users.get(userId);
         if (Objects.nonNull(user.getEmail())) {
             emails.put(userId, user.getEmail());
@@ -41,12 +41,12 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> getUserById(long userId) {
+    public Optional<User> getById(long userId) {
         return Optional.ofNullable(users.get(userId));
     }
 
     @Override
-    public Optional<User> deleteUserById(long userId) {
+    public Optional<User> deleteById(long userId) {
         if (users.containsKey(userId)) {
             User loadedUser = new User(users.get(userId).getName(), users.get(userId).getName());
             emails.remove(userId);
@@ -57,7 +57,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> getUsers() {
+    public List<User> getAll() {
         return new ArrayList<>(users.values());
     }
 }

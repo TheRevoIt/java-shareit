@@ -8,13 +8,13 @@ import java.util.Optional;
 public interface UserRepository {
     boolean uniqueEmailCheck(String email);
 
-    User addUser(User user);
+    User add(User user);
 
-    void updateUser(long userId, User user);
+    void update(long userId, User user);
 
-    Optional<User> getUserById(long userId);
+    Optional<User> getById(long userId);
 
-    Optional<User> deleteUserById(long userId);
+    Optional<User> deleteById(long userId);
 
-    List<User> getUsers();
+    List<User> getAll();
 }
