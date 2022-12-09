@@ -22,7 +22,7 @@ class ItemService {
         this.userRepository = userRepository;
     }
 
-    public ItemDto createItem(ItemDto itemDto, long userId) {
+    public ItemDto create(ItemDto itemDto, long userId) {
         User owner = userRepository.getUserById(userId).orElseThrow(() ->
                 new NotFoundException(String.format("Пользователь с id=%x не найден", userId)));
         Item mappedItem = itemRepository.addItem(ItemMapper.toItem(itemDto, owner));
@@ -30,7 +30,7 @@ class ItemService {
         return ItemMapper.toItemDto(mappedItem);
     }
 
-    public ItemDto updateItem(ItemDto itemDto, long itemId, long userId) {
+    public ItemDto update(ItemDto itemDto, long itemId, long userId) {
         User owner = userRepository.getUserById(userId).orElseThrow(() ->
                 new NotFoundException(String.format("Пользователь с id=%x не найден", userId)));
         Item loadedItem = validateOwner(userId, itemId);
@@ -48,17 +48,17 @@ class ItemService {
         return loadedItem;
     }
 
-    public ItemDto getItemById(long itemId) {
+    public ItemDto getById(long itemId) {
         return ItemMapper.toItemDto(itemRepository.getItemById(itemId).orElseThrow(() ->
                 new NotFoundException(String.format("Предмет с id=%x не найден", itemId))));
     }
 
-    public List<ItemDto> getAllItems(long ownerId) {
+    public List<ItemDto> getAll(long ownerId) {
         return itemRepository.getItems().stream().filter(item -> item.getOwner().getId() == ownerId)
                 .map(ItemMapper::toItemDto).collect(Collectors.toList());
     }
 
-    public List<ItemDto> searchItems(String text) {
+    public List<ItemDto> search(String text) {
         String searchText = text.toLowerCase();
         if (searchText.length() < 1) {
             return new ArrayList<>();

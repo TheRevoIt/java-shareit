@@ -29,32 +29,32 @@ public class ItemController {
     }
 
     @PostMapping
-    ItemDto createItem(@RequestHeader("X-Sharer-User-Id") long userId,
+    ItemDto create(@RequestHeader("X-Sharer-User-Id") long userId,
                        @Validated({Create.class}) @RequestBody ItemDto itemDto) {
-        return itemService.createItem(itemDto, userId);
+        return itemService.create(itemDto, userId);
     }
 
     @PatchMapping("/{itemId}")
-    ItemDto patchItem(@RequestHeader("X-Sharer-User-Id") long userId,
+    ItemDto patch(@RequestHeader("X-Sharer-User-Id") long userId,
                       @PathVariable long itemId,
                       @Validated({Update.class}) @RequestBody ItemDto itemDto) {
-        return itemService.updateItem(itemDto, itemId, userId);
+        return itemService.update(itemDto, itemId, userId);
     }
 
     @GetMapping("/{itemId}")
-    ItemDto getItemById(@RequestHeader("X-Sharer-User-Id") long userId,
+    ItemDto getById(@RequestHeader("X-Sharer-User-Id") long userId,
                         @PathVariable long itemId) {
-        return itemService.getItemById(itemId);
+        return itemService.getById(itemId);
     }
 
     @GetMapping
-    List<ItemDto> getAllUserItems(@RequestHeader("X-Sharer-User-Id") long userId) {
-        return itemService.getAllItems(userId);
+    List<ItemDto> getAllItems(@RequestHeader("X-Sharer-User-Id") long userId) {
+        return itemService.getAll(userId);
     }
 
     @GetMapping("/search")
-    List<ItemDto> searchItems(@RequestParam(name = "text") String text,
+    List<ItemDto> search(@RequestParam(name = "text") String text,
                               @RequestHeader("X-Sharer-User-Id") long userId) {
-        return itemService.searchItems(text);
+        return itemService.search(text);
     }
 }
