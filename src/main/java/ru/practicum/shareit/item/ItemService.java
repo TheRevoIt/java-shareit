@@ -47,9 +47,6 @@ class ItemService {
 
     List<ItemDto> search(String text) {
         String searchText = text.toLowerCase();
-        if (searchText.length() < 1) {
-            return List.of();
-        }
         return itemRepository.getAll().stream().filter(item ->
                         (item.getDescription().toLowerCase().contains(searchText) ||
                                 item.getName().toLowerCase().contains(searchText)) &&
