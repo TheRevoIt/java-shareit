@@ -31,13 +31,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void update(long userId, User user) {
-        User userToUpdate = users.get(userId);
-        if (Objects.nonNull(user.getEmail())) {
+        users.put(userId, user);
+        if (Objects.nonNull(user.getEmail()) && !user.getEmail().isBlank()) {
             emails.put(userId, user.getEmail());
-            userToUpdate.setEmail(user.getEmail());
-        }
-        if (Objects.nonNull(user.getName())) {
-            userToUpdate.setName(user.getName());
         }
     }
 
