@@ -5,10 +5,11 @@ import ru.practicum.shareit.user.UserRepository;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.Objects;
 
 class UniqueEmailValidator implements ConstraintValidator<UniqueEmailConstraint, String> {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public void initialize(UniqueEmailConstraint constraintAnnotation) {
@@ -16,6 +17,12 @@ class UniqueEmailValidator implements ConstraintValidator<UniqueEmailConstraint,
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return userRepository.uniqueEmailCheck(value);
+        if (Objects.isNull(value)) {
+            return true;
+        } else if (!value.isBlank()) {
+            return userRepository.uniqueEmailCheck(value);
+        } else {
+            return false;
+        }
     }
 }

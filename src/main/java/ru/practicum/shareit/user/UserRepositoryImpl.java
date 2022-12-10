@@ -6,13 +6,14 @@ import ru.practicum.shareit.user.model.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
-    private final HashMap<Long, User> users = new HashMap<>();
-    private final HashMap<Long, String> emails = new HashMap<>();
+    private final Map<Long, User> users = new HashMap<>();
+    private final Map<Long, String> emails = new HashMap<>();
     private long id = 1;
 
     @Override

@@ -14,7 +14,7 @@ public class UserDto {
     @NotBlank(groups = {Create.class})
     private final String name;
     @NotBlank(groups = {Create.class})
-    @UniqueEmailConstraint(groups = {Create.class, Update.class})
-    @Email(groups = {Create.class})
+    @UniqueEmailConstraint(groups = {Create.class})
+    @Email(groups = {Create.class, Update.class})
     private final String email;
 }
