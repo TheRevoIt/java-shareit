@@ -26,8 +26,9 @@ public class UserController {
     }
 
     @PatchMapping(path = "/{userId}")
-    UserDto update(@PathVariable long userId, @Validated({Update.class}) @RequestBody UserDto userDto) {
-        return userService.update(userId, userDto);
+    UserDto update(@Validated({Update.class}) @RequestBody UserDto userDto,
+                   @PathVariable long userId) {
+        return userService.update(userDto, userId);
     }
 
     @GetMapping(path = "/{userId}")
@@ -42,6 +43,6 @@ public class UserController {
 
     @GetMapping
     List<UserDto> getAll() {
-        return userService.getAll();
+        return userService.findAll();
     }
 }
