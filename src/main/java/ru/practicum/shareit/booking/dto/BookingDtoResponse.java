@@ -19,9 +19,9 @@ public class BookingDtoResponse {
     private Item item;
     private BookingStatus status;
 
-   public long getItemId() {
-       return item.getId();
-   }
+    public long getItemId() {
+        return item.getId();
+    }
 
     @Data
     public static class Item {

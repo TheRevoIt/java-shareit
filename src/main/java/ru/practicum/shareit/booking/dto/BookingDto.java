@@ -2,8 +2,8 @@ package ru.practicum.shareit.booking.dto;
 
 import lombok.Data;
 import ru.practicum.shareit.booking.validation.EndDateAfterStartDate;
-import ru.practicum.shareit.user.Create;
-import ru.practicum.shareit.user.Update;
+import ru.practicum.shareit.util.Create;
+import ru.practicum.shareit.util.Update;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
