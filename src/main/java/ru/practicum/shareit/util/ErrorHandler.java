@@ -1,19 +1,17 @@
 package ru.practicum.shareit.util;
 
 import lombok.extern.slf4j.Slf4j;
+import org.postgresql.util.PSQLException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.practicum.shareit.util.exception.BookingException;
 import ru.practicum.shareit.util.exception.CommentException;
 import ru.practicum.shareit.util.exception.NotFoundException;
-import org.postgresql.util.PSQLException;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +35,6 @@ public class ErrorHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-
     @ExceptionHandler
     public ResponseEntity<String> handleThrowable(final CommentException e) {
         log.info("400 {}", e.getMessage());
@@ -58,13 +55,13 @@ public class ErrorHandler {
         log.info("400 {}", e.getMessage());
         Map<String, String> errorResponse = new HashMap<>();
         errorResponse.put("error", "Unknown state: " + e.getMessage().substring(e.getMessage()
-                .lastIndexOf(".") + 1 ));
+                .lastIndexOf(".") + 1));
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({DataIntegrityViolationException.class, ConstraintViolationException.class, PSQLException.class})
     public ResponseEntity<Object> handleConstraintViolation(PSQLException ex) {
         log.info("500 {}", ex.getMessage());
-            return new ResponseEntity<>("Email already exists", HttpStatus.CONFLICT);
+        return new ResponseEntity<>("Email already exists", HttpStatus.CONFLICT);
     }
 }

@@ -6,7 +6,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.time.LocalDateTime;
 
-public class EndDateAfterStartDateValidator implements ConstraintValidator<EndDateAfterStartDate, BookingDto> {
+class EndDateAfterStartDateValidator implements ConstraintValidator<EndDateAfterStartDate, BookingDto> {
     @Override
     public void initialize(EndDateAfterStartDate constraintAnnotation) {
     }
@@ -19,4 +19,5 @@ public class EndDateAfterStartDateValidator implements ConstraintValidator<EndDa
             return false;
         }
         return booking.getEnd().isAfter(booking.getStart());
-    }}
+    }
+}

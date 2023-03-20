@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.shareit.item.dto.CommentDto;
 import ru.practicum.shareit.item.dto.ItemAndBookingDto;
 import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.model.Comment;
-import ru.practicum.shareit.user.Create;
-import ru.practicum.shareit.user.Update;
+import ru.practicum.shareit.util.Create;
+import ru.practicum.shareit.util.Update;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -35,8 +33,8 @@ public class ItemController {
 
     @PatchMapping("/{itemId}")
     ItemDto update(@RequestHeader("X-Sharer-User-Id") long userId,
-                  @PathVariable long itemId,
-                  @Validated({Update.class}) @RequestBody ItemDto itemDto) {
+                   @PathVariable long itemId,
+                   @Validated({Update.class}) @RequestBody ItemDto itemDto) {
         return itemService.update(itemDto, itemId, userId);
     }
 
