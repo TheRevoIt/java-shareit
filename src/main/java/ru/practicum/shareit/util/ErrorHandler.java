@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.practicum.shareit.util.exception.BookingException;
+import ru.practicum.shareit.util.exception.CommentException;
 import ru.practicum.shareit.util.exception.NotFoundException;
 import org.postgresql.util.PSQLException;
 
@@ -36,10 +37,11 @@ public class ErrorHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+
     @ExceptionHandler
-    public ResponseEntity<String> handleThrowable(final EntityNotFoundException e) {
-        log.info("404 {}", e.getMessage());
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<String> handleThrowable(final CommentException e) {
+        log.info("400 {}", e.getMessage());
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler

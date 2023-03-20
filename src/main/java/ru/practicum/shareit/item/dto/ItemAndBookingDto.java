@@ -7,6 +7,7 @@ import ru.practicum.shareit.user.Create;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @AllArgsConstructor
 @Getter
@@ -21,4 +22,5 @@ public class ItemAndBookingDto {
     private final Boolean available;
     private BookingDtoShortResponse lastBooking;
     private BookingDtoShortResponse nextBooking;
+    private List<CommentDto> comments;
 }

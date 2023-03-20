@@ -101,6 +101,13 @@ public class BookingServiceImpl implements BookingService {
                 bookings = bookingRepository.findBookingByBookerIdAndBookingStatusOrderByStartDesc(userId,
                         BookingStatus.REJECTED);
                 break;
+            case CURRENT:
+                bookings = bookingRepository.findBookingsByBookerIdCurrent(userId, LocalDateTime.now());
+                break;
+            case PAST:
+                bookings = bookingRepository.findBookingsByBookerIdAndEndBefore(userId, LocalDateTime.now(),
+                        Sort.by(Sort.Direction.DESC, "start"));
+                break;
         }
         return bookings.stream().map(BookingMapper::toBookingDtoResponse).collect(Collectors.toList());
     }
@@ -126,6 +133,13 @@ public class BookingServiceImpl implements BookingService {
             case REJECTED:
                 bookings = bookingRepository.findBookingByItemOwnerIdAndBookingStatusOrderByStartDesc(userId,
                         BookingStatus.REJECTED);
+                break;
+            case CURRENT:
+                bookings = bookingRepository.findBookingsByItemOwnerCurrent(userId, LocalDateTime.now());
+                break;
+            case PAST:
+                bookings = bookingRepository.findBookingsByItemOwnerIdAndEndBefore(userId, LocalDateTime.now(),
+                        Sort.by(Sort.Direction.DESC, "start"));
                 break;
         }
         return bookings.stream().map(BookingMapper::toBookingDtoResponse).collect(Collectors.toList());

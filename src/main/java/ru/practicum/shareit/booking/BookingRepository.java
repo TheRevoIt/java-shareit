@@ -10,11 +10,23 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
-    List<Booking> findBookingByBookerIdAndEndIsBefore(Long bookerId, LocalDateTime end, Sort sort);
+    List<Booking> findBookingByBookerIdAndItemIdAndEndBeforeOrderByStartDesc(Long bookerId, long itemId, LocalDateTime end);
 
     List<Booking> findBookingsByBookerIdOrderByStartDesc(long userId);
 
     List<Booking> findBookingsByBookerIdAndStartAfter(long userId, LocalDateTime end, Sort sort);
+
+    List<Booking> findBookingsByBookerIdAndEndBefore(long userId, LocalDateTime now, Sort sort);
+
+    @Query("select b from Booking b where :time between b.start " +
+            "and b.end and b.booker.id = :bookerId order by b.start desc")
+    List<Booking> findBookingsByBookerIdCurrent(@Param("bookerId") long userId, @Param("time") LocalDateTime time);
+
+    @Query("select b from Booking b where :time between b.start " +
+            "and b.end and b.item.owner.id = :ownerId order by b.start desc")
+    List<Booking> findBookingsByItemOwnerCurrent(@Param("ownerId") long userId, @Param("time") LocalDateTime time);
+
+    List<Booking> findBookingsByItemOwnerIdAndEndBefore(long userId, LocalDateTime now, Sort sort);
 
     List<Booking> findBookingsByItemOwnerIdOrderByStartDesc(long userId);
 

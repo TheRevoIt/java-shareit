@@ -6,6 +6,8 @@ import ru.practicum.shareit.item.dto.ItemAndBookingDto;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.user.model.User;
 
+import java.util.ArrayList;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ItemMapper {
     public static Item toItem(ItemDto itemDto, User owner) {
@@ -34,6 +36,6 @@ public class ItemMapper {
 
     public static ItemAndBookingDto toItemAndBookingDto(Item item) {
         return new ItemAndBookingDto(item.getId(), item.getName(), item.getDescription(),
-                item.isAvailable(), null, null);
+                item.isAvailable(), null, null, new ArrayList<>());
     }
 }
