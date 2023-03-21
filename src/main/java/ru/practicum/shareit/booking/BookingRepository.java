@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
-    List<Booking> findBookingByBookerIdAndItemIdAndEndBeforeOrderByStartDesc(Long bookerId, long itemId, LocalDateTime end);
+    boolean existsByBookerIdAndItemIdAndEndBefore(Long bookerId, long itemId, LocalDateTime end);
 
     List<Booking> findBookingsByBookerIdOrderByStartDesc(long userId);
 

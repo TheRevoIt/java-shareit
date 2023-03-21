@@ -2,6 +2,7 @@ package ru.practicum.shareit.item;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.model.BookingMapper;
 import ru.practicum.shareit.booking.BookingRepository;
 import ru.practicum.shareit.item.dto.BookingDtoShortResponse;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
@@ -41,15 +43,15 @@ class ItemServiceImpl implements ItemService {
         return ItemMapper.toItemDto(mappedItem);
     }
 
+    @Transactional
     @Override
     public ItemDto update(ItemDto itemDto, long itemId, long userId) {
         User owner = userRepository.findById(userId).orElseThrow(() ->
                 new NotFoundException(String.format("Пользователь с id=%d не найден", userId)));
         Item loadedItem = itemRepository.findById(itemId).orElseThrow(() ->
                 new NotFoundException(String.format("Предмет с id=%d не найден", itemId)));
-        Item updatedItem = ItemMapper.toUpdatedItem(itemDto, loadedItem, owner);
-        itemRepository.save(updatedItem);
-        return ItemMapper.toItemDto(updatedItem);
+        ItemMapper.toUpdatedItem(itemDto, loadedItem, owner);
+        return ItemMapper.toItemDto(loadedItem);
     }
 
     @Override
@@ -82,6 +84,7 @@ class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional
     public CommentDto createComment(CommentDto commentDto, long itemId, long userId) {
         User user = userRepository.findById(userId).orElseThrow(() ->
                 new NotFoundException(String.format("Пользователь с id=%d не найден", userId)));
@@ -89,8 +92,8 @@ class ItemServiceImpl implements ItemService {
                 new NotFoundException(String.format("Предмет с id=%d не найден", itemId)));
         Comment comment = CommentMapper.dtoToComment(commentDto, user, item);
 
-        if (bookingRepository.findBookingByBookerIdAndItemIdAndEndBeforeOrderByStartDesc(userId, itemId,
-                LocalDateTime.now()).isEmpty()) {
+        if (!bookingRepository.existsByBookerIdAndItemIdAndEndBefore(userId, itemId,
+                LocalDateTime.now())) {
             throw new CommentException("The user can not leave a comment to this item");
         }
         comment.setAuthor(user);

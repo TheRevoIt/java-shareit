@@ -11,10 +11,9 @@ import ru.practicum.shareit.user.model.User;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BookingMapper {
     public static Booking toBooking(BookingDto bookingDto, User booker, Item item) {
-        Booking resultBooking = new Booking(
+        return new Booking(
                 bookingDto.getStart(), bookingDto.getEnd(),
                 item, booker);
-        return resultBooking;
     }
 
     public static BookingDtoShortResponse toBookingDtoShortResponse(Booking booking) {
