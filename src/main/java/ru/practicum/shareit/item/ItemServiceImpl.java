@@ -3,8 +3,8 @@ package ru.practicum.shareit.item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.shareit.booking.model.BookingMapper;
 import ru.practicum.shareit.booking.BookingRepository;
+import ru.practicum.shareit.booking.model.BookingMapper;
 import ru.practicum.shareit.item.dto.BookingDtoShortResponse;
 import ru.practicum.shareit.item.dto.CommentDto;
 import ru.practicum.shareit.item.dto.ItemAndBookingDto;
@@ -20,7 +20,6 @@ import ru.practicum.shareit.util.exception.CommentException;
 import ru.practicum.shareit.util.exception.NotFoundException;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -50,6 +49,9 @@ class ItemServiceImpl implements ItemService {
                 new NotFoundException(String.format("Пользователь с id=%d не найден", userId)));
         Item loadedItem = itemRepository.findById(itemId).orElseThrow(() ->
                 new NotFoundException(String.format("Предмет с id=%d не найден", itemId)));
+        if (loadedItem.getOwner().getId() != userId) {
+            throw new NotFoundException("The user can not update this item");
+        }
         ItemMapper.toUpdatedItem(itemDto, loadedItem, owner);
         return ItemMapper.toItemDto(loadedItem);
     }
@@ -67,19 +69,16 @@ class ItemServiceImpl implements ItemService {
     public List<ItemAndBookingDto> getAll(long ownerId) {
         User owner = userRepository.findById(ownerId).orElseThrow(() ->
                 new NotFoundException(String.format("Пользователь с id=%d не найден", ownerId)));
-        List<Item> results = itemRepository.findAll().stream().filter(item -> item.getOwner().getId() == ownerId)
-                .sorted(Comparator.comparing(Item::getId))
-                .collect(Collectors.toList());
+        List<Item> results = itemRepository.findAllByOwnerIdOrderById(ownerId);
         return getItemAndBookingAndComments(ownerId, results);
     }
 
     @Override
     public List<ItemDto> search(String text) {
         String searchText = text.toLowerCase();
-        return itemRepository.findAll().stream().filter(item ->
-                        (item.getDescription().toLowerCase().contains(searchText) ||
-                                item.getName().toLowerCase().contains(searchText)) &&
-                                item.isAvailable())
+        return itemRepository
+                .findByNameContainingIgnoreCaseAndIsAvailableIsTrueOrDescriptionContainingIgnoreCaseAndIsAvailableIsTrue(searchText, searchText)
+                .stream()
                 .map(ItemMapper::toItemDto).collect(Collectors.toList());
     }
 
