@@ -2,6 +2,7 @@ package ru.practicum.shareit.request.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.practicum.shareit.util.Create;
 
@@ -12,11 +13,12 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class ItemRequestDto {
     private long id;
-    private String description;
-    @NotBlank(groups = Create.class)
     @Size(max = 255)
+    @NotBlank(groups = Create.class)
+    private String description;
     private long requesterId;
     private LocalDateTime created;
 }
