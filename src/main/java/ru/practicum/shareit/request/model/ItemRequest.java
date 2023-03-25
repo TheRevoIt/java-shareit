@@ -16,11 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
 @Setter
 @Getter
-@Entity
 @Table(name = "requests")
-@NoArgsConstructor
+@Entity
 public class ItemRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
