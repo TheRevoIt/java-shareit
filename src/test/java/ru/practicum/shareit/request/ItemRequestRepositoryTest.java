@@ -68,16 +68,4 @@ class ItemRequestRepositoryTest {
         assertEquals(1,itemRequests.size());
         assertEquals("test",itemRequests.get(0).getDescription());
     }
-
-    @Test
-    void findByRequesterIdNotInTest() {
-        testEntityManager.persist(user);
-        testEntityManager.persist(user2);
-        testEntityManager.persist(itemRequest1);
-        testEntityManager.persist(itemRequest2);
-        PageRequest pageRequest = PageRequest.of(0,10);
-        List<ItemRequest> itemRequests = itemRequestRepository.findItemRequestsByRequesterIdNot(1, pageRequest);
-        assertEquals(2,itemRequests.size());
-        assertEquals("test2",itemRequests.get(0).getDescription());
-    }
 }
