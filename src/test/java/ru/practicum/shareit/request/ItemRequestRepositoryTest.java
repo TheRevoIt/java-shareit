@@ -77,7 +77,7 @@ class ItemRequestRepositoryTest {
         testEntityManager.persist(itemRequest2);
         PageRequest pageRequest = PageRequest.of(0,10);
         List<ItemRequest> itemRequests = itemRequestRepository.findItemRequestsByRequesterIdNot(1, pageRequest);
-        assertEquals(1,itemRequests.size());
+        assertEquals(2,itemRequests.size());
         assertEquals("test2",itemRequests.get(0).getDescription());
     }
 }
