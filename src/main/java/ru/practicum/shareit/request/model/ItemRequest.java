@@ -1,9 +1,7 @@
 package ru.practicum.shareit.request.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import ru.practicum.shareit.user.model.User;
 
