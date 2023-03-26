@@ -11,12 +11,13 @@ class UserMapper {
         return new User(userDto.getName(), userDto.getEmail());
     }
 
-    static User toUpdatedUser(UserDto userDto, User existingUser) {
-        User resultUser = new User(
-                userDto.getName() == null || userDto.getName().isBlank() ? existingUser.getName() : userDto.getName(),
-                userDto.getEmail() == null || userDto.getEmail().isBlank() ? existingUser.getEmail() : userDto.getEmail());
-        resultUser.setId(existingUser.getId());
-        return resultUser;
+    static void toUpdatedUser(UserDto userDto, User existingUser) {
+        if (!(userDto.getName() == null || userDto.getName().isBlank())) {
+            existingUser.setName(userDto.getName());
+        }
+        if (!(userDto.getEmail() == null || userDto.getEmail().isBlank())) {
+            existingUser.setEmail(userDto.getEmail());
+        }
     }
 
     static UserDto toUserDto(User user) {
