@@ -52,7 +52,7 @@ public class ItemController {
     List<ItemAndBookingDto> getAllItems(@RequestHeader("X-Sharer-User-Id") long userId,
                                         @PositiveOrZero @RequestParam(defaultValue = "0") int from,
                                         @Positive @RequestParam(defaultValue = "5") int size) {
-        return itemService.getAll(userId, PageRequest.of(from/size, size));
+        return itemService.getAll(userId, PageRequest.of(from / size, size));
     }
 
     @GetMapping("/search")
@@ -63,7 +63,7 @@ public class ItemController {
         if (text.isBlank()) {
             return List.of();
         }
-        return itemService.search(text, PageRequest.of(from/size, size));
+        return itemService.search(text, PageRequest.of(from / size, size));
     }
 
     @PostMapping("/{itemId}/comment")

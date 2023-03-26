@@ -43,8 +43,8 @@ class ItemServiceImpl implements ItemService {
                 new NotFoundException(String.format("Пользователь с id=%d не найден", userId)));
         ItemRequest itemRequest = null;
         if (itemDto.getRequestId() != null) {
-           itemRequest = itemRequestRepository.findById(itemDto.getRequestId()).orElseThrow(() ->
-                new NotFoundException(String.format("Запрос с id=%d не найден", itemDto.getRequestId())));
+            itemRequest = itemRequestRepository.findById(itemDto.getRequestId()).orElseThrow(() ->
+                    new NotFoundException(String.format("Запрос с id=%d не найден", itemDto.getRequestId())));
         }
         Item mappedItem = itemRepository.save(ItemMapper.toItem(itemDto, owner, itemRequest));
         mappedItem.setOwner(owner);

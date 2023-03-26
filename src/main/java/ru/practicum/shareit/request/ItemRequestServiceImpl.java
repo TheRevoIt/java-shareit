@@ -66,7 +66,7 @@ public class ItemRequestServiceImpl implements ItemRequestService {
         User requester = userRepository.findById(userId).orElseThrow(() ->
                 new NotFoundException(String.format("Пользователь с id=%d не найден", userId)));
         List<ItemRequestDtoResponse> itemRequestResponses = itemRequestRepository.findItemRequestsByRequesterIdNot(userId,
-                PageRequest.of(from / size, size)).stream()
+                        PageRequest.of(from / size, size)).stream()
                 .map(ItemRequestsMapper::toItemRequestDtoResponse)
                 .collect(Collectors.toList());
         addItemsToRequests(itemRequestResponses);
