@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.request.ItemRequestRepository;
@@ -24,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @AutoConfigureTestDatabase
 @DataJpaTest
 @RunWith(SpringRunner.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 class ItemRepositoryTest {
     final TestEntityManager testEntityManagerItems;
@@ -105,7 +107,7 @@ class ItemRepositoryTest {
         testEntityManagerItems.persist(item);
         testEntityManagerItems.persist(item1);
 
-        List<Item> itemList = itemRepository.findItemsByItemRequestId(2);
+        List<Item> itemList = itemRepository.findItemsByItemRequestId(1);
         assertEquals(1, itemList.size());
         assertEquals("name2", itemList.get(0).getName());
 
