@@ -20,8 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @JsonTest
 class BookingDtoTest {
-    UserDto userDto;
-    ItemDto itemDto;
+    private UserDto userDto;
+    private ItemDto itemDto;
 
     @Autowired
     private JacksonTester<ItemAndBookingDto> json;

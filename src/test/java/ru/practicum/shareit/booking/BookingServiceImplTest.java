@@ -133,7 +133,7 @@ class BookingServiceImplTest {
     void getBookingsByOwnerIdWithAllState() {
         Booking booking = BookingMapper.toBooking(bookingDto, user, item);
         when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(user));
-        when(bookingRepository.findBookingsByItemOwnerIdOrderByStartDesc(anyLong(), any()))
+        when(bookingRepository.findBookingsByBookerIdOrderByStartDesc(anyLong(), any()))
                 .thenReturn(Collections.singletonList(booking));
         List<BookingDtoResponse> bookings = bookingService.getAll(user.getId(), "ALL", PageRequest.of(1, 1));
         assertEquals(1, bookings.size());

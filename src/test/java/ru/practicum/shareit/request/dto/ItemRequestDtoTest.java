@@ -11,13 +11,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @JsonTest
 class ItemRequestDtoTest {
     @Autowired
     private JacksonTester<ItemRequestDto> json;
-    ItemRequestDto itemRequestDto;
+    private ItemRequestDto itemRequestDto;
 
     @BeforeEach
     void setup() {

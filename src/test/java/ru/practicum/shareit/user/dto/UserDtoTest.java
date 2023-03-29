@@ -10,14 +10,13 @@ import org.springframework.boot.test.json.JsonContent;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @JsonTest
 class UserDtoTest {
     @Autowired
     private JacksonTester<UserDto> json;
 
-    UserDto userDto;
+    private UserDto userDto;
 
     @BeforeEach
     void setup() {
