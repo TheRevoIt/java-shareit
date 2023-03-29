@@ -17,7 +17,8 @@ import ru.practicum.shareit.user.model.User;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @AutoConfigureTestDatabase
 @DataJpaTest
@@ -33,7 +34,6 @@ class ItemRequestRepositoryTest {
     private User user2;
     private Item item;
     private Item item1;
-
 
     @BeforeEach
     void initialData() {
@@ -64,7 +64,7 @@ class ItemRequestRepositoryTest {
         testEntityManager.persist(itemRequest1);
         testEntityManager.persist(itemRequest2);
         List<ItemRequest> itemRequests = itemRequestRepository.findAllByRequesterId(1);
-        assertEquals(1,itemRequests.size());
-        assertEquals("test",itemRequests.get(0).getDescription());
+        assertEquals(1, itemRequests.size());
+        assertEquals("test", itemRequests.get(0).getDescription());
     }
 }

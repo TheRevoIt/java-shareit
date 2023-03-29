@@ -22,7 +22,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
@@ -58,9 +59,9 @@ class ItemServiceImplTest {
 
     @Test
     void createUserNotFoundTest() {
-       when(userRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(userRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-       assertThrows(NotFoundException.class, () -> itemService.create(itemDto, 1));
+        assertThrows(NotFoundException.class, () -> itemService.create(itemDto, 1));
     }
 
     @Test
@@ -94,6 +95,6 @@ class ItemServiceImplTest {
         when(bookingRepository.existsByBookerIdAndItemIdAndEndBefore(anyLong(), anyLong(), any()))
                 .thenThrow(new CommentException("The user can not leave a comment to this item"));
 
-        assertThrows(CommentException.class , () -> itemService.createComment(commentDto, 1, 1));
+        assertThrows(CommentException.class, () -> itemService.createComment(commentDto, 1, 1));
     }
 }

@@ -139,15 +139,15 @@ class BookingServiceImplTest {
         assertEquals(1, bookings.size());
     }
 
-   @Test
+    @Test
     void getBookingsByBookerIdWithFutureState() {
-       Booking booking = BookingMapper.toBooking(bookingDto, user, item);
-       when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(user));
-       when(bookingRepository.findBookingsByBookerIdAndStartAfter(anyLong(), any(), any(), any()))
-               .thenReturn(Collections.singletonList(booking));
-       List<BookingDtoResponse> bookings = bookingService.getAll(user.getId(), "FUTURE", PageRequest.of(1, 1));
-       assertEquals(1, bookings.size());
-   }
+        Booking booking = BookingMapper.toBooking(bookingDto, user, item);
+        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(user));
+        when(bookingRepository.findBookingsByBookerIdAndStartAfter(anyLong(), any(), any(), any()))
+                .thenReturn(Collections.singletonList(booking));
+        List<BookingDtoResponse> bookings = bookingService.getAll(user.getId(), "FUTURE", PageRequest.of(1, 1));
+        assertEquals(1, bookings.size());
+    }
 
     @Test
     void getBookingsByOwnerIdWithFutureState() {

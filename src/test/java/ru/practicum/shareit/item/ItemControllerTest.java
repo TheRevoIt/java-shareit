@@ -106,7 +106,7 @@ class ItemControllerTest {
 
     @Test
     void updateTest() throws Exception {
-        when(itemService.update(any(), anyLong(),anyLong())).thenReturn(itemDtoUpdate);
+        when(itemService.update(any(), anyLong(), anyLong())).thenReturn(itemDtoUpdate);
 
         mockMvc.perform(patch("/items/1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -121,7 +121,7 @@ class ItemControllerTest {
 
     @Test
     void updateErrorTest() throws Exception {
-        when(itemService.update(any(), anyLong(),anyLong())).thenThrow(new NotFoundException("The item not found"));
+        when(itemService.update(any(), anyLong(), anyLong())).thenThrow(new NotFoundException("The item not found"));
 
         mockMvc.perform(patch("/items/1")
                         .contentType(MediaType.APPLICATION_JSON)
