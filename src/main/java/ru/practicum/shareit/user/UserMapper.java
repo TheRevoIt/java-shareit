@@ -6,12 +6,12 @@ import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.model.User;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-class UserMapper {
-    static User toUser(UserDto userDto) {
+public class UserMapper {
+    public static User toUser(UserDto userDto) {
         return new User(userDto.getName(), userDto.getEmail());
     }
 
-    static void toUpdatedUser(UserDto userDto, User existingUser) {
+    public static void toUpdatedUser(UserDto userDto, User existingUser) {
         if (!(userDto.getName() == null || userDto.getName().isBlank())) {
             existingUser.setName(userDto.getName());
         }
@@ -20,7 +20,7 @@ class UserMapper {
         }
     }
 
-    static UserDto toUserDto(User user) {
+    public static UserDto toUserDto(User user) {
         return new UserDto(user.getId(), user.getName(), user.getEmail());
     }
 }

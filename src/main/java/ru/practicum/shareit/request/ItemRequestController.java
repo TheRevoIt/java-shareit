@@ -22,10 +22,9 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/requests")
-@Transactional(readOnly = true)
 @Validated
 public class ItemRequestController {
-    ItemRequestService itemRequestService;
+    private ItemRequestService itemRequestService;
 
     @PostMapping
     @Transactional

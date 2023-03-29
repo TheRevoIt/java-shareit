@@ -155,4 +155,13 @@ class BookingControllerTest {
                 .andExpect(jsonPath("$[0].item.id").value(1L));
 
     }
+
+    @Test
+    void incorrectPaginationTest() throws Exception {
+        mockMvc.perform(get("/bookings??from=-1&size=0")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .header("X-Sharer-User-Id", 1L))
+                .andExpect(status().isBadRequest());
+    }
 }
