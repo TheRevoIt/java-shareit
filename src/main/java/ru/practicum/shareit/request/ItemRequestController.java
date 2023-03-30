@@ -27,7 +27,6 @@ public class ItemRequestController {
     private ItemRequestService itemRequestService;
 
     @PostMapping
-    @Transactional
     ItemRequestDtoResponse create(@Validated(Create.class) @RequestBody ItemRequestDto itemRequestDto,
                                   @RequestHeader("X-Sharer-User-Id") long userId) {
         return itemRequestService.create(itemRequestDto, userId);
