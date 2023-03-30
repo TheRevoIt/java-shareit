@@ -1,8 +1,6 @@
 package ru.practicum.shareit.util;
 
 import lombok.extern.slf4j.Slf4j;
-import org.postgresql.util.PSQLException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -59,9 +57,12 @@ public class ErrorHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({DataIntegrityViolationException.class, ConstraintViolationException.class, PSQLException.class})
-    public ResponseEntity<Object> handleConstraintViolation(PSQLException ex) {
-        log.info("500 {}", ex.getMessage());
-        return new ResponseEntity<>("Email already exists", HttpStatus.CONFLICT);
+    @ExceptionHandler
+    public ResponseEntity<String> handleConstraintViolation(ConstraintViolationException e) {
+        log.info("500 {}", e.getMessage());
+        if (e.getMessage().contains("email")) {
+            return new ResponseEntity<>("Email already exists", HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>("Constraint violation", HttpStatus.BAD_REQUEST);
     }
 }

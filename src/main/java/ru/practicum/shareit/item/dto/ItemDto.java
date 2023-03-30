@@ -1,13 +1,19 @@
 package ru.practicum.shareit.item.dto;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import ru.practicum.shareit.util.Create;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
+@EqualsAndHashCode
 public class ItemDto {
     private final long id;
     @NotBlank(groups = {Create.class})
@@ -18,4 +24,5 @@ public class ItemDto {
     private final String description;
     @NotNull(groups = {Create.class})
     private final Boolean available;
+    private Long requestId;
 }
