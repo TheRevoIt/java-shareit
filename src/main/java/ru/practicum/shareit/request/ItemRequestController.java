@@ -1,7 +1,6 @@
 package ru.practicum.shareit.request;
 
 import lombok.AllArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
