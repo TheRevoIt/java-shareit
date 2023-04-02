@@ -16,7 +16,7 @@ services:
     build: server
     image: server
     ports:
-      - "8082:8082"
+      - "9090:9090"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
     depends_on:
