@@ -20,7 +20,7 @@
         <java.version>11</java.version>
     </properties>
     <modules>
-        <module>Gateway</module>
+        <module>gateway</module>
         <module>server</module>
     </modules>
     <build>
