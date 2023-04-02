@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.practicum.shareit.util.exception.BadStateException;
 import ru.practicum.shareit.util.exception.BookingException;
 import ru.practicum.shareit.util.exception.CommentException;
 import ru.practicum.shareit.util.exception.ErrorResponse;

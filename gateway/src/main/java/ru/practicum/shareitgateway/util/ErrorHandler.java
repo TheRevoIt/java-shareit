@@ -6,14 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.practicum.shareitgateway.util.exception.BadStateException;
 import ru.practicum.shareitgateway.util.exception.BookingException;
 import ru.practicum.shareitgateway.util.exception.CommentException;
 import ru.practicum.shareitgateway.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestControllerAdvice
 @Slf4j

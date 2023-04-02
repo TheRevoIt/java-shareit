@@ -15,7 +15,6 @@ import ru.practicum.shareit.user.UserRepository;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.util.BookingState;
 import ru.practicum.shareit.util.BookingStatus;
-import ru.practicum.shareit.util.exception.BadStateException;
 import ru.practicum.shareit.util.exception.BookingException;
 import ru.practicum.shareit.util.exception.NotFoundException;
 

@@ -3,7 +3,6 @@ package ru.practicum.shareit.booking;
 import org.springframework.data.domain.PageRequest;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.BookingDtoResponse;
-import ru.practicum.shareit.util.exception.BadStateException;
 
 import java.util.List;
 
