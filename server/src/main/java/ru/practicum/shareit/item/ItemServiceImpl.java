@@ -38,6 +38,7 @@ class ItemServiceImpl implements ItemService {
     private final ItemRequestRepository itemRequestRepository;
 
     @Override
+    @Transactional
     public ItemDto create(ItemDto itemDto, long userId) {
         User owner = userRepository.findById(userId).orElseThrow(() ->
                 new NotFoundException(String.format("Пользователь с id=%d не найден", userId)));

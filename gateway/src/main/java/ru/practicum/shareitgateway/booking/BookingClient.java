@@ -17,7 +17,7 @@ public class BookingClient extends BaseClient {
     private static final String API_PATH = "/bookings";
 
     @Autowired
-    public BookingClient(@Value("${server.url.test}") String url, RestTemplateBuilder builder) {
+    public BookingClient(@Value("${server.url}") String url, RestTemplateBuilder builder) {
         super(builder.uriTemplateHandler(new DefaultUriBuilderFactory(url + API_PATH))
                 .requestFactory(HttpComponentsClientHttpRequestFactory::new).build());
     }

@@ -17,7 +17,7 @@ public class ItemRequestClient extends BaseClient {
     private static final String API_PATH = "/requests";
 
     @Autowired
-    public ItemRequestClient(@Value("${server.url.test}") String url, RestTemplateBuilder builder) {
+    public ItemRequestClient(@Value("${server.url}") String url, RestTemplateBuilder builder) {
         super(builder.uriTemplateHandler(new DefaultUriBuilderFactory(url + API_PATH))
                 .requestFactory(HttpComponentsClientHttpRequestFactory::new).build());
     }

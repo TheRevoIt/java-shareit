@@ -8,7 +8,6 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.shareitgateway.client.BaseClient;
-import ru.practicum.shareitgateway.request.dto.ItemRequestDto;
 import ru.practicum.shareitgateway.user.dto.UserDto;
 
 import java.util.Map;
@@ -18,7 +17,7 @@ public class UserClient extends BaseClient {
     private static final String API_PATH = "/users";
 
     @Autowired
-    public UserClient(@Value("${server.url.test}") String url, RestTemplateBuilder builder) {
+    public UserClient(@Value("${server.url}") String url, RestTemplateBuilder builder) {
         super(builder.uriTemplateHandler(new DefaultUriBuilderFactory(url + API_PATH))
                 .requestFactory(HttpComponentsClientHttpRequestFactory::new).build());
     }
