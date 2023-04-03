@@ -2,6 +2,7 @@ package ru.practicum.shareitgateway.item;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.shareitgateway.item.dto.CommentDto;
 import ru.practicum.shareitgateway.item.dto.ItemDto;
 import ru.practicum.shareitgateway.util.Create;
@@ -19,8 +19,9 @@ import ru.practicum.shareitgateway.util.Update;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.Collections;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/items")
 @Validated
@@ -58,6 +59,9 @@ public class ItemController {
                                   @RequestHeader("X-Sharer-User-Id") long userId,
                                   @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                   @RequestParam(defaultValue = "5") @Positive int size) {
+        if (text.isBlank()) {
+            return ResponseEntity.ok(Collections.emptyList());
+        }
         return itemClient.search(text, userId, from, size);
     }
 

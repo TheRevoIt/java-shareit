@@ -1,6 +1,7 @@
 package ru.practicum.shareit.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.model.User;
@@ -36,10 +37,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public void deleteById(long userId) {
+    public ResponseEntity<Object> deleteById(long userId) {
         User loadedUser = userRepository.findById(userId).orElseThrow(() ->
                 new NotFoundException(String.format("Пользователь с id=%d не найден", userId)));
         userRepository.deleteById(userId);
+        return ResponseEntity.ok().build();
     }
 
     public List<UserDto> findAll() {

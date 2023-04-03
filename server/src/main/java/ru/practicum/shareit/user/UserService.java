@@ -1,5 +1,6 @@
 package ru.practicum.shareit.user;
 
+import org.springframework.http.ResponseEntity;
 import ru.practicum.shareit.user.dto.UserDto;
 
 import java.util.List;
@@ -11,7 +12,7 @@ interface UserService {
 
     UserDto getById(long userId);
 
-    void deleteById(long userId);
+    ResponseEntity<Object> deleteById(long userId);
 
     List<UserDto> findAll();
 }

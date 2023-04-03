@@ -1,6 +1,7 @@
 package ru.practicum.shareit.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -36,8 +37,8 @@ public class UserController {
     }
 
     @DeleteMapping(path = "/{userId}")
-    void deleteById(@PathVariable long userId) {
-        userService.deleteById(userId);
+    ResponseEntity<Object> deleteById(@PathVariable long userId) {
+        return userService.deleteById(userId);
     }
 
     @GetMapping

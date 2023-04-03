@@ -49,16 +49,6 @@ public class ErrorHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(e.getMessage()));
     }
 
-//    @ExceptionHandler
-//    public ResponseEntity<?> handleThrowable(final IllegalArgumentException e) {
-//        log.info("400 {}", e.getMessage());
-//        Map<String, String> errorResponse = new HashMap<>();
-//        errorResponse.put("error", "Unknown state: " + e.getMessage().substring(e.getMessage()
-//                .lastIndexOf(".") + 1));
-//        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("Unknown state: " + e.getMessage().substring(e.getMessage()
-//                .lastIndexOf(".") + 1)));
-//    }
-
     @ExceptionHandler
     public ResponseEntity<?> handleThrowable(final IllegalArgumentException e) {
         log.info("400 {}", e.getMessage());
