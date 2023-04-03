@@ -76,8 +76,8 @@
                         <dependency>
                             <groupId>com.fasterxml.jackson.core</groupId>
                             <artifactId>jackson-databind</artifactId>
-                        </dependency>
-                    </dependencies>
+                            <version>2.14.2</version>
+                        </dependency>                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
